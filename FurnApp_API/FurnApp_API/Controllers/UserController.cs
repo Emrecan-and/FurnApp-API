@@ -2,6 +2,7 @@
 using FurnApp_API.DTO;
 using FurnApp_API.Helper;
 using FurnApp_API.Med.Commands;
+using FurnApp_API.Med.Queries;
 using FurnApp_API.Models;
 using FurnApp_API.Security;
 using MediatR;
@@ -21,38 +22,47 @@ namespace FurnApp_API.Controllers
         private readonly IMediator mediator;
         private readonly FurnAppContext db;
         private readonly IConfiguration _configuration;
-        public UserController(IMediator mediator, FurnAppContext db,IConfiguration configuration)
+        public UserController(IMediator mediator, FurnAppContext db, IConfiguration configuration)
         {
             this.mediator = mediator;
             this.db = db;
-            this._configuration = configuration;
+            _configuration = configuration;
         }
 
         [HttpPost("SignUp")]
-        public IActionResult SignUpUser(UserDTO user)
+        public async Task<IActionResult> SignUpUserAsync(UserDTO user)
         {
-            if (user.UsersAddress == null || user.UsersAuthorization == null || user.UsersMail == null || user.UsersPassword == null ||
-                user.UsersTelNo == null)
-            {
-                return BadRequest("Cannot be null");
-            }
-            if (user.UsersPassword.Length < 6)
-            {
-                return BadRequest("Password must contain at least 6 character");
-            }
-            if (!(Validation.IsValidEmail(user.UsersMail)))
-            {
-                return BadRequest("Wrong email address");
-            }
-            if (db.Users.Any(u => u.UsersMail == user.UsersMail))
-            {
-                return BadRequest("This mail address was already taken");
-            }
             var command = new UserSignUpCommand() { user = user };
+            var response = await mediator.Send(command);
+            if (response.Success)
+            {
+                return Ok(response);
+               // MailSender mailSender = MailSender.GetInstance();
+               // mailSender.LoginSender(user.UsersMail);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
 
-            return Ok(mediator.Send(command));
         }
 
+        [HttpPost("LogIn")]
+        public async Task<IActionResult> LogInUserAsync(UserDTO user)
+        {
+            var query = new UserLogInQuery() { user = user };
+            var response = await mediator.Send(query);
+            if (response.Success)
+            {
+                
+                return Ok(response);
+                
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
 
     }
 }

@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FurnApp_API.Med.Commands
+namespace FurnApp_API.Med.Queries
 {
-    public class UserSignUpCommand :IRequest<ApiResponse<Token>>
+    public class UserLogInQuery : IRequest<ApiResponse<Token>>
     {
-        public UserDTO user;
+       public UserDTO user;
     }
 }
