@@ -5482,11 +5482,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\EMRECAN ERKUŞ\\source\\repos\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj",
+      "projectUniqueName": "C:\\Users\\EMRECAN ERKUŞ\\Documents\\GitHub\\FurnApp-API\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj",
       "projectName": "FurnApp_API",
-      "projectPath": "C:\\Users\\EMRECAN ERKUŞ\\source\\repos\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj",
+      "projectPath": "C:\\Users\\EMRECAN ERKUŞ\\Documents\\GitHub\\FurnApp-API\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj",
       "packagesPath": "C:\\Users\\EMRECAN ERKUŞ\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\EMRECAN ERKUŞ\\source\\repos\\FurnApp_API\\FurnApp_API\\obj\\",
+      "outputPath": "C:\\Users\\EMRECAN ERKUŞ\\Documents\\GitHub\\FurnApp-API\\FurnApp_API\\FurnApp_API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\EMRECAN ERKUŞ\\AppData\\Roaming\\NuGet\\NuGet.Config",

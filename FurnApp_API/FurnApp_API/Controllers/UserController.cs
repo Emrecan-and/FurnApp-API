@@ -28,7 +28,7 @@ namespace FurnApp_API.Controllers
             this._configuration = configuration;
         }
 
-        [HttpPost("SignUp")]    
+        [HttpPost("SignUp")]
         public IActionResult SignUpUser(UserDTO user)
         {
             if (user.UsersAddress == null || user.UsersAuthorization == null || user.UsersMail == null || user.UsersPassword == null ||
@@ -42,12 +42,17 @@ namespace FurnApp_API.Controllers
             }
             if (!(Validation.IsValidEmail(user.UsersMail)))
             {
-                return BadRequest("Wrong email");
+                return BadRequest("Wrong email address");
             }
-            var command = new UserSignUpCommand() {user=user };
+            if (db.Users.Any(u => u.UsersMail == user.UsersMail))
+            {
+                return BadRequest("This mail address was already taken");
+            }
+            var command = new UserSignUpCommand() { user = user };
 
             return Ok(mediator.Send(command));
         }
+
 
     }
 }
