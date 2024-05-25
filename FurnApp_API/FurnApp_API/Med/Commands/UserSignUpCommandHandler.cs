@@ -49,8 +49,8 @@ namespace FurnApp_API.Med.Commands
             }
 
             var user1 = DtoConverter.UserConverter(request.user);
-            db.Users.AddAsync(user1);
-            db.SaveChangesAsync();
+           await db.Users.AddAsync(user1);
+           await db.SaveChangesAsync();
             ApiResponse<Token> apiResponse2 = new ApiResponse<Token>()
             {
                 Data = TokenHandler.CreateToken(request.user.UsersMail, configuration),
