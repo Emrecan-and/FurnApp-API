@@ -1,4 +1,5 @@
-﻿using FurnApp_API.Models;
+﻿using FurnApp_API.DTO;
+using FurnApp_API.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FurnApp_API.Med.Queries
 {
-    public class GetCartQueryHandler : IRequestHandler<GetCartQuery, List<Cart>>
+    public class GetCartQueryHandler : IRequestHandler<GetCartQuery, ApiResponse<List<CartDTO>>>
     {
         private readonly FurnAppContext db;
 
@@ -18,40 +19,49 @@ namespace FurnApp_API.Med.Queries
             this.db = db;
         }
 
-        public async Task<List<Cart>> Handle(GetCartQuery request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<List<CartDTO>>> Handle(GetCartQuery request, CancellationToken cancellationToken)
         {
-            var user = await db.Users.FirstOrDefaultAsync(o => o.UsersId == request.UserId);
+            var user = await db.Users.FirstOrDefaultAsync(o => o.UsersMail == request.UserMail);
 
-            /* if (user == null)
+            if (user == null)
              {
-                 var apiResponse2 = new ApiResponseList<Cart>()
+                 var apiResponse2 = new ApiResponse<List<CartDTO>>()
                  {
-                     DataList = null,
-                     Message = "Wrong userId!",
+                     Data = null,
+                     Message = "Wrong UserMail!",
                      Success = false
                  };
                  return apiResponse2;
              }
-             var cart = await db.Cart.Where(o => o.UsersId == request.UserId).ToListAsync(cancellationToken);
-             if (!cart.Any())
+             var carts = await db.Cart.Where(o => o.UsersId==user.UsersId).ToListAsync(cancellationToken);
+             if (!carts.Any())
              {
-                 var apiResponse1 = new ApiResponseList<Cart>()
+                 var apiResponse1 = new ApiResponse<List<CartDTO>>
                  {
-                     DataList = null,
+                     Data = null,
                      Message = "We don't have any record for this user!",
                      Success = false
                  };
                  return apiResponse1;
-             }*/
-            var cart = await db.Cart.Where(o => o.UsersId == request.UserId).ToListAsync(cancellationToken);
-            /*var apiResponse = List<Cart>()
+             }
+            var cartDTOs = new List<CartDTO>();
+            foreach(var cart in carts)
             {
-                DataList = cart,
+                var cartDto = new CartDTO()
+                {
+                    cartId = cart.CartId,
+                    productId =(int) cart.ProductId,
+                    userId=(int)cart.UsersId
+                };
+                cartDTOs.Add(cartDto);
+            }
+            return new ApiResponse<List<CartDTO>>()
+            {
+                Data = cartDTOs,
                 Message = "Request is successfully!",
                 Success = true
             };
-            return apiResponse;*/
-            return cart;
+
         }
     }
 }

@@ -19,9 +19,9 @@ namespace FurnApp_API.Med.Commands
         }
         public async Task<ApiResponse<Cart>> Handle(CreateCartCommand request, CancellationToken cancellationToken)
         {
-            var user = await db.Users.FirstOrDefaultAsync(o => o.UsersId == request.UserId);
+            var user = await db.Users.FirstOrDefaultAsync(o => o.UsersMail == request.UserMail);
             var product = await db.Products.FirstOrDefaultAsync(o => o.ProductId == request.ProductId);
-            if (request.ProductId == null || request.UserId == null)
+            if (request.ProductId == 0 || request.UserMail == null)
             {
                 var apiResponse = new ApiResponse<Cart>
                 {
@@ -41,7 +41,7 @@ namespace FurnApp_API.Med.Commands
                 };
                 return apiResponse;
             }
-            var cart = new Cart { ProductId = request.ProductId, UsersId = request.UserId };
+            var cart = new Cart { ProductId = request.ProductId, UsersId = user.UsersId };
             await db.Cart.AddAsync(cart);
             await db.SaveChangesAsync();
             var apiResponse1 = new ApiResponse<Cart>

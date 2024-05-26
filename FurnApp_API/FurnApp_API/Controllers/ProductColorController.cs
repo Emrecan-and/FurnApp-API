@@ -17,46 +17,29 @@ namespace FurnApp_API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class ProductColorController : ControllerBase
     {
         private readonly IMediator mediator;
         private readonly FurnAppContext db;
         private readonly IConfiguration _configuration;
-        public UserController(IMediator mediator, FurnAppContext db, IConfiguration configuration)
+        public ProductColorController(IMediator mediator, FurnAppContext db, IConfiguration configuration)
         {
             this.mediator = mediator;
             this.db = db;
             _configuration = configuration;
         }
 
-        [HttpPost("SignUp")]
-        public async Task<IActionResult> SignUpUserAsync(UserDTO user)
+
+
+        [HttpPost("AddProductColor")]
+        public async Task<IActionResult> CreateProductColor(int productId, int colorId)
         {
-            var command = new UserSignUpCommand() { user = user };
+            var command = new CreateProductColorCommand { productId = productId, colorId = colorId };
             var response = await mediator.Send(command);
+
             if (response.Success)
             {
                 return Ok(response);
-               // MailSender mailSender = MailSender.GetInstance();
-               // mailSender.LoginSender(user.UsersMail);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
-
-        }
-
-        [HttpPost("LogIn")]
-        public async Task<IActionResult> LogInUserAsync(UserDTO user)
-        {
-            var query = new UserLogInQuery() { user = user };
-            var response = await mediator.Send(query);
-            if (response.Success)
-            {
-                
-                return Ok(response);
-                
             }
             else
             {
@@ -64,10 +47,10 @@ namespace FurnApp_API.Controllers
             }
         }
 
-        [HttpPut("Update")]
-        public async Task<IActionResult> UpdateUserAsync(string userMail, UserUpdateDTO userUpdate)
+        [HttpDelete("DeleteProductColor")]
+        public async Task<IActionResult> DeleteProductColor(int colorId, int productId)
         {
-            var command = new UserUpdateCommand { UserMail = userMail, UserUpdate = userUpdate };
+            var command = new DeleteProductColorCommand() { colorId = colorId, productId = productId };
             var response = await mediator.Send(command);
             if (response.Success)
             {
@@ -77,7 +60,22 @@ namespace FurnApp_API.Controllers
             {
                 return BadRequest(response);
             }
+
         }
 
+        [HttpGet("GetProductColors")]
+        public async Task<IActionResult> GetProductColors()
+        {
+            var command = new GetProductColorsQuery();
+            var response = await mediator.Send(command);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }

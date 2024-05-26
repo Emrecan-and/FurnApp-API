@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace FurnApp_API.Med.Commands
 {
-    public class CreateCartCommand : IRequest<ApiResponse<Cart>>
+    public class DeleteProductColorCommand : IRequest<ApiResponse<ProductColors>>
     {
-        public int ProductId;
-
-        public string UserMail;
+        public int productId { get; set;}
+        public int colorId { get; set;}
     }
 }

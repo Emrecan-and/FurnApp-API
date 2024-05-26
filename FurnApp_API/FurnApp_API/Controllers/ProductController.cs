@@ -30,9 +30,9 @@ namespace FurnApp_API.Controllers
         }
 
         [HttpPost("AddCart")]
-        public async Task<IActionResult> CreateCart(int productId, int userId)
+        public async Task<IActionResult> CreateCart(int productId, string userMail)
         {
-            var command = new CreateCartCommand { ProductId = productId, UserId = userId };
+            var command = new CreateCartCommand { ProductId = productId, UserMail = userMail };
             var response = await mediator.Send(command);
 
             if (response.Success)
@@ -45,21 +45,20 @@ namespace FurnApp_API.Controllers
             }
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> GetCarts(int userId)
+        [HttpGet("{UserMail}")]
+        public async Task<IActionResult> GetCarts(string userMail)
         {
-            var query = new GetCartQuery() { UserId = userId };
+            var query = new GetCartQuery() { UserMail = userMail };
             var response = await mediator.Send(query);
-            return Ok(response);
 
-            /*  if (response.Success)
+             if (response.Success)
               {
                   return Ok(response);
               }
               else
               {
                   return BadRequest(response);
-              }*/
+              }
         }
 
        [HttpDelete("DeleteCart")]

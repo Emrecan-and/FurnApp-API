@@ -92,5 +92,6 @@ namespace FurnApp_API.Controllers
                 return BadRequest(response);
             }
         }
+
     }
 }
