@@ -23,7 +23,7 @@ namespace FurnApp_API.Med.Queries
             {
                 Data = colors,
                 Success = true,
-                Message = "Colors were came successfully!"
+                Message = "Addresses were came successfully!"
             };
         }
     }

@@ -22,5 +22,20 @@ namespace FurnApp_API.Helper
             return user;
         }
 
+        public static Address AddressConverter(AddressDTO2 dto)
+        {
+            Address address = new Address
+            {
+                BuildingNumber = dto.BuildingNumber,
+                City = dto.City,
+                PostalCode = dto.PostalCode,
+                Street = dto.Street,
+                District = dto.District,
+                HomeNumber = dto.HomeNumber,
+                Neighborhood = dto.Neighborhood
+            };
+            return address;
+        }
+
     }
 }

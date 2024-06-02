@@ -45,13 +45,13 @@ namespace FurnApp_API.Med.Queries
                  return apiResponse1;
              }
             var cartDTOs = new List<CartDTO>();
-            foreach(var cart in carts)
+            foreach (var cart in carts)
             {
                 var cartDto = new CartDTO()
                 {
                     cartId = cart.CartId,
-                    productId =(int) cart.ProductId,
-                    userId=(int)cart.UsersId
+                    productId = (int)cart.ProductId,
+                    userId = (int)cart.UsersId
                 };
                 cartDTOs.Add(cartDto);
             }
