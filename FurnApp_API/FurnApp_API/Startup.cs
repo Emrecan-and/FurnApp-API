@@ -71,6 +71,7 @@ namespace FurnApp_API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FurnApp_API v1"));
             }
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 
@@ -79,7 +80,7 @@ namespace FurnApp_API
             app.UseRouting();
 
             app.UseAuthorization();
-
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

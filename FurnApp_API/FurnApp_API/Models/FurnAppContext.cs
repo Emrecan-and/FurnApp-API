@@ -33,6 +33,7 @@ namespace FurnApp_API.Models
                 optionsBuilder.UseSqlServer("Server=DESKTOP-JEUIHMH\\SQLEXPRESS; Database=FurnApp;Trusted_Connection=True;");
             }
         }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

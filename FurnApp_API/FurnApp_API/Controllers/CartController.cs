@@ -17,12 +17,12 @@ namespace FurnApp_API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class CartController : ControllerBase
     {
         private readonly IMediator mediator;
         private readonly FurnAppContext db;
         private readonly IConfiguration _configuration;
-        public ProductController(IMediator mediator, FurnAppContext db, IConfiguration configuration)
+        public CartController(IMediator mediator, FurnAppContext db, IConfiguration configuration)
         {
             this.mediator = mediator;
             this.db = db;
