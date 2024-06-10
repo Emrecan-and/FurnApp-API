@@ -45,7 +45,7 @@ namespace FurnApp_API.Controllers
             }
         }
 
-        [HttpGet("{UserMail}")]
+        [HttpGet("{userMail}")]
         public async Task<IActionResult> GetCarts(string userMail)
         {
             var query = new GetCartQuery() { UserMail = userMail };
@@ -76,6 +76,6 @@ namespace FurnApp_API.Controllers
             }
         }
 
-      
+        
     }
 }
