@@ -111,5 +111,35 @@ namespace FurnApp_API.Controllers
                 return BadRequest(response);
             }
         }
+        [HttpGet("GetEightProducts")]
+        public async Task<IActionResult> GetEightProducts()
+        {
+            var query = new GetEightProductsQuery();
+            var response = await mediator.Send(query);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+        [HttpGet("SearchProducts")]
+        public async Task<IActionResult> GetSearchProducts(string ProductName)
+        {
+            var query = new GetSearchProductQuery() { ProductName = ProductName };
+            var response = await mediator.Send(query);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }
