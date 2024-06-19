@@ -42,7 +42,16 @@ namespace FurnApp_API
             services.AddMediatR(typeof(Startup).Assembly);
 
             services.AddDbContext<FurnAppContext>();
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllPolicy",
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin();
+                        policy.AllowAnyMethod();
+                        policy.AllowAnyHeader();
+                    });
+            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -75,6 +84,10 @@ namespace FurnApp_API
 
             app.UseHttpsRedirection();
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
             app.UseAuthentication();
 
             app.UseRouting();
