@@ -78,6 +78,21 @@ namespace FurnApp_API.Controllers
                 return BadRequest(response);
             }
         }
+        [HttpDelete("Delete/{email}")]
+        public async Task<IActionResult> DeleteUser(string email)
+        {
+            var command = new UserDeleteCommand { UsersMail = email };
+            var response = await mediator.Send(command);
+
+            if (response.Success)
+            {
+                return Ok(response); // Başarılı olduğunda NoContent (204) döner.
+            }
+            else
+            {
+                return BadRequest(response); // Başarısız olduğunda BadRequest (400) döner.
+            }
+        }
 
     }
 }

@@ -1,7 +1,6 @@
 ﻿using FurnApp_API.Models;
 using MediatR;
-using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,27 +14,33 @@ namespace FurnApp_API.Med.Commands
         {
             this.db = db;
         }
+
         public async Task<ApiResponse<Colors>> Handle(DeleteColorCommand request, CancellationToken cancellationToken)
         {
             var color = await db.Colors.FindAsync(request.ColorId);
 
             if (color == null)
             {
-                var apiResponse2 = new ApiResponse<Colors>()
+                return new ApiResponse<Colors>()
                 {
                     Data = null,
                     Message = "There is no data related with this ColorId!",
                     Success = false
                 };
-                return apiResponse2;
             }
 
+            // İlgili ProductColor kayıtlarını bul ve sil
+            var productColors = db.ProductColors.Where(pc => pc.ColorId == request.ColorId);
+            db.ProductColors.RemoveRange(productColors);
+
+            // Color'ı sil
             db.Colors.Remove(color);
             await db.SaveChangesAsync();
+
             return new ApiResponse<Colors>()
             {
                 Data = null,
-                Message = "Color was deleted successfully!",
+                Message = "Color and related ProductColors were deleted successfully!",
                 Success = true
             };
         }

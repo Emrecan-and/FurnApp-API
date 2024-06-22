@@ -1,16 +1,11 @@
 ﻿
 using FurnApp_API.DTO;
-using FurnApp_API.Helper;
 using FurnApp_API.Med.Commands;
 using FurnApp_API.Med.Queries;
 using FurnApp_API.Models;
-using FurnApp_API.Security;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FurnApp_API.Controllers
@@ -68,7 +63,46 @@ namespace FurnApp_API.Controllers
             }
         }
 
+        [HttpDelete("DeleteAddress/{id}")]
+        public async Task<IActionResult> DeleteAddress(int id)
+        {
+            var command = new DeleteAddressCommand { AddressId = id };
+            var response = await mediator.Send(command);
 
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+        [HttpPut("UpdateAddress")]
+        public async Task<IActionResult> UpdateAddress(AddressDTO address)
+        {
+            var command = new UpdateAddressCommand
+            {
+                AddressId = address.AddressId,
+                BuildingNumber = address.BuildingNumber,
+                City = address.City,
+                HomeNumber = address.HomeNumber,
+                District = address.District,
+                Street = address.Street,
+                PostalCode = address.PostalCode,
+                Neighborhood = address.Neighborhood
+            };
+            var response = await mediator.Send(command);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
 
     }
 }
