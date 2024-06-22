@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace FurnApp_API
@@ -32,8 +33,14 @@ namespace FurnApp_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers()
+               .AddJsonOptions(options =>
+               {
+                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                 options.JsonSerializerOptions.MaxDepth = 64; // veya istedi?iniz derinlik de?eri
+                                             // Di?er gerekli ayarlar? da burada belirtebilirsiniz
+                });
 
-            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FurnApp_API", Version = "v1" });
@@ -71,6 +78,7 @@ namespace FurnApp_API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FurnApp_API v1"));
             }
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 
@@ -79,7 +87,7 @@ namespace FurnApp_API
             app.UseRouting();
 
             app.UseAuthorization();
-
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

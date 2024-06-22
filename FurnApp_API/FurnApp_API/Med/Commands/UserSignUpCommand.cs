@@ -1,4 +1,5 @@
 ﻿using FurnApp_API.DTO;
+using FurnApp_API.Models;
 using FurnApp_API.Security;
 using MediatR;
 using System;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FurnApp_API.Med.Commands
 {
-    public class UserSignUpCommand :IRequest<Token>
+    public class UserSignUpCommand :IRequest<ApiResponse<Token>>
     {
         public UserDTO user;
     }

@@ -2,6 +2,7 @@
 using FurnApp_API.DTO;
 using FurnApp_API.Helper;
 using FurnApp_API.Med.Commands;
+using FurnApp_API.Med.Queries;
 using FurnApp_API.Models;
 using FurnApp_API.Security;
 using MediatR;
@@ -21,32 +22,76 @@ namespace FurnApp_API.Controllers
         private readonly IMediator mediator;
         private readonly FurnAppContext db;
         private readonly IConfiguration _configuration;
-        public UserController(IMediator mediator, FurnAppContext db,IConfiguration configuration)
+        public UserController(IMediator mediator, FurnAppContext db, IConfiguration configuration)
         {
             this.mediator = mediator;
             this.db = db;
-            this._configuration = configuration;
+            _configuration = configuration;
         }
 
-        [HttpPost("SignUp")]    
-        public IActionResult SignUpUser(UserDTO user)
+        [HttpPost("SignUp")]
+        public async Task<IActionResult> SignUpUserAsync(UserDTO user)
         {
-            if (user.UsersAddress == null || user.UsersAuthorization == null || user.UsersMail == null || user.UsersPassword == null ||
-                user.UsersTelNo == null)
+            var command = new UserSignUpCommand() { user = user };
+            var response = await mediator.Send(command);
+            if (response.Success)
             {
-                return BadRequest("Cannot be null");
+                return Ok(response);
+               // MailSender mailSender = MailSender.GetInstance();
+               // mailSender.LoginSender(user.UsersMail);
             }
-            if (user.UsersPassword.Length < 6)
+            else
             {
-                return BadRequest("Password must contain at least 6 character");
+                return BadRequest(response);
             }
-            if (!(Validation.IsValidEmail(user.UsersMail)))
-            {
-                return BadRequest("Wrong email");
-            }
-            var command = new UserSignUpCommand() {user=user };
 
-            return Ok(mediator.Send(command));
+        }
+
+        [HttpPost("LogIn")]
+        public async Task<IActionResult> LogInUserAsync(UserDTO user)
+        {
+            var query = new UserLogInQuery() { user = user };
+            var response = await mediator.Send(query);
+            if (response.Success)
+            {
+                
+                return Ok(response);
+                
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateUserAsync(string userMail, UserUpdateDTO userUpdate)
+        {
+            var command = new UserUpdateCommand { UserMail = userMail, UserUpdate = userUpdate };
+            var response = await mediator.Send(command);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+        [HttpDelete("Delete/{email}")]
+        public async Task<IActionResult> DeleteUser(string email)
+        {
+            var command = new UserDeleteCommand { UsersMail = email };
+            var response = await mediator.Send(command);
+
+            if (response.Success)
+            {
+                return Ok(response); // Başarılı olduğunda NoContent (204) döner.
+            }
+            else
+            {
+                return BadRequest(response); // Başarısız olduğunda BadRequest (400) döner.
+            }
         }
 
     }
