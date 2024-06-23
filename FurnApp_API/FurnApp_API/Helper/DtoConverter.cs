@@ -36,6 +36,32 @@ namespace FurnApp_API.Helper
             };
             return address;
         }
-
+        public static Orders OrdersConverter(OrdersDTO2 dto)
+        {
+            Orders order = new Orders
+            {
+                OrderDate = dto.OrderDate,
+                CargoNo = dto.CargoNo,
+                UsersId = dto.UsersId,
+                ProductId = dto.ProductId,
+                AddressId = dto.AddressId
+            };
+            return order;
+        }
+        public static Payment PaymentConverter(PaymentDTO2 dto)
+        {
+            Payment payment = new Payment
+            {
+                CreditCardNo = dto.CreditCardNo,
+                CardName = dto.CardName,
+                CardMonth = dto.CardMonth,
+                CardYear = dto.CardYear,
+                CardCvv = dto.CardCvv,
+                CargoPrice = dto.CargoPrice,
+                UsersId = dto.UsersId,
+                CargoCompany = dto.CargoCompany
+            };
+            return payment;
+        }
     }
 }
