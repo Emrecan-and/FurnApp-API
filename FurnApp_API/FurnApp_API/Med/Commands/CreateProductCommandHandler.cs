@@ -42,7 +42,7 @@ namespace FurnApp_API.Med.Commands
            await db.SaveChangesAsync();
             return new ApiResponse<String>()
             {
-                Data = null,
+                Data = product.ProductId.ToString(),
                 Message = "Product was created successfully",
                 Success = true
             };

@@ -29,8 +29,6 @@ namespace FurnApp_API.Controllers
             _configuration = configuration;
         }
 
-
-
         [HttpPost("AddProductColor")]
         public async Task<IActionResult> CreateProductColor(int productId, int colorId)
         {
@@ -45,6 +43,22 @@ namespace FurnApp_API.Controllers
             {
                 return BadRequest(response);
             }
+        }
+        
+        [HttpPut("UpdateProductColor")]
+        public async Task<IActionResult> UpdateProductColor(int colorId, int productId)
+        {
+            var command = new UpdateProductColorCommand() { ProductId = productId, ColorId = colorId };
+            var response = await mediator.Send(command);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+
         }
 
         [HttpDelete("DeleteProductColor")]

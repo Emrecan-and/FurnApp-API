@@ -192,7 +192,7 @@ namespace FurnApp_API.Models
 
             modelBuilder.Entity<ProductColors>(entity =>
             {
-                entity.HasKey(e => new { e.ProductId, e.ColorId })
+                entity.HasKey(e =>  e.ProductId )
                     .HasName("PK__Product___CFA10A6FE49912E7");
 
                 entity.ToTable("Product_Colors");
