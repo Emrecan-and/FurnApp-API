@@ -57,9 +57,12 @@ namespace FurnApp_API.Med.Queries
                         break;
                 }
             }
+
+            var productImages = await db.ProductImages.ToListAsync();
             var products = new List<ProductDTO>();
             foreach (var product in filteredProducts)
             {
+                var image = productImages?.Find(pi => pi.ProductId == product.ProductId);
                 var productDto = new ProductDTO()
                 {
                     ProductId = product.ProductId,
@@ -67,7 +70,8 @@ namespace FurnApp_API.Med.Queries
                     ProductName = product.ProductName,
                     ProductPrice = product.ProductPrice,
                     ProductStock = product.ProductStock,
-                    CategoryId = product.CategoryId
+                    CategoryId = product.CategoryId,
+                    imageBase64 = image?.Base64
                 };
                 products.Add(productDto);
             }

@@ -24,6 +24,7 @@ namespace FurnApp_API.Models
         public virtual DbSet<ProductColors> ProductColors { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<ProductImage> ProductImages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -212,6 +213,22 @@ namespace FurnApp_API.Models
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Product_C__Produ__4222D4EF");
+            });
+
+            modelBuilder.Entity<ProductImage>(entity => {
+                entity.HasKey(e => e.ProductId)
+                    .HasName("PK__Product__C234A8A3D3A3D3A3");
+                
+                entity.ToTable("Product_Image");
+                
+                entity.Property(e => e.ProductId).HasColumnName("Product_Id");
+                entity.Property(e => e.Base64).HasColumnName("Base_64");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductImages)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Product_I__Produ__3A81B327");
             });
 
             modelBuilder.Entity<Products>(entity =>

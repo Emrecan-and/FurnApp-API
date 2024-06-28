@@ -13,5 +13,6 @@ namespace FurnApp_API.DTO
         public decimal? ProductPrice { get; set; }
         public string ProductDescription { get; set; }
         public int? CategoryId { get; set; }
+        public string imageBase64 { get; set; }
     }
 }

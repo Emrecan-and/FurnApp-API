@@ -10,6 +10,7 @@ namespace FurnApp_API.Models
             Cart = new HashSet<Cart>();
             Orders = new HashSet<Orders>();
             ProductColors = new HashSet<ProductColors>();
+            ProductImages = new HashSet<ProductImage>();
         }
 
         public int ProductId { get; set; }
@@ -24,5 +25,6 @@ namespace FurnApp_API.Models
         public virtual ICollection<Cart> Cart { get; set; }
         public virtual ICollection<Orders> Orders { get; set; }
         public virtual ICollection<ProductColors> ProductColors { get; set; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
     }
 }
