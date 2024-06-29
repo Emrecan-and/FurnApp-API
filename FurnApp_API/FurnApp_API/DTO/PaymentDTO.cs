@@ -10,6 +10,8 @@
         public int CardCvv { get; set; }
         public decimal? CargoPrice { get; set; }
         public int? UsersId { get; set; }
+        public string UserFullName { get; set; }
+
         public string CargoCompany { get; set; }
     }
 

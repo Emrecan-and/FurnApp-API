@@ -30,8 +30,11 @@ namespace FurnApp_API.Med.Queries
                                      OrderDate = o.OrderDate,
                                      CargoNo = o.CargoNo,
                                      UsersId = o.UsersId,
+                                     UserFullName = o.Users.UsersMail,
                                      ProductId = o.ProductId,
-                                     AddressId = o.AddressId
+                                     ProductName = o.Product.ProductName,
+                                     AddressId = o.AddressId,
+                                     AddressName = o.Address.City + " " + o.Address.District + " " + o.Address.Neighborhood + " " + o.Address.Street + " " + o.Address.BuildingNumber + " " + o.Address.HomeNumber + " " + o.Address.PostalCode
                                  }).ToListAsync();
 
             return new ApiResponse<List<OrdersDTO2>>

@@ -19,7 +19,9 @@ namespace FurnApp_API.Med.Queries
 
         public async Task<ApiResponse<List<PaymentDTO>>> Handle(GetPaymentsQuery request, CancellationToken cancellationToken)
         {
-            var payments = await db.Payment.ToListAsync(cancellationToken);
+            var payments = await db.Payment
+                .Include(p => p.Users)
+                .ToListAsync(cancellationToken);
             var paymentDTOs = new List<PaymentDTO>();
 
             foreach (var payment in payments)
@@ -34,6 +36,7 @@ namespace FurnApp_API.Med.Queries
                     CardCvv = payment.CardCvv,
                     CargoPrice = payment.CargoPrice,
                     UsersId = payment.UsersId,
+                    UserFullName = payment.Users.UsersMail,
                     CargoCompany = payment.CargoCompany
                 };
                 paymentDTOs.Add(paymentDto);
