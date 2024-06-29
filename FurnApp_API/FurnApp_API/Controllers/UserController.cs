@@ -93,6 +93,20 @@ namespace FurnApp_API.Controllers
                 return BadRequest(response); // Başarısız olduğunda BadRequest (400) döner.
             }
         }
+        [HttpGet("GetUsers")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var query = new GetUsersQuery();
+            var response = await mediator.Send(query);
 
+            if (response.Success)
+            {
+                return Ok(response); // Başarılı olduğunda NoContent (204) döner.
+            }
+            else
+            {
+                return BadRequest(response); // Başarısız olduğunda BadRequest (400) döner.
+            }
+        }
     }
 }
