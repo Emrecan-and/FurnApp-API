@@ -1,32 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\EMRECAN ERKUŞ\\Documents\\GitHub\\FurnApp-API\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj": {}
+    "C:\\FurnApp-API\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\EMRECAN ERKUŞ\\Documents\\GitHub\\FurnApp-API\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj": {
+    "C:\\FurnApp-API\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\EMRECAN ERKUŞ\\Documents\\GitHub\\FurnApp-API\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj",
+        "projectUniqueName": "C:\\FurnApp-API\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj",
         "projectName": "FurnApp_API",
-        "projectPath": "C:\\Users\\EMRECAN ERKUŞ\\Documents\\GitHub\\FurnApp-API\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj",
-        "packagesPath": "C:\\Users\\EMRECAN ERKUŞ\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\EMRECAN ERKUŞ\\Documents\\GitHub\\FurnApp-API\\FurnApp_API\\FurnApp_API\\obj\\",
+        "projectPath": "C:\\FurnApp-API\\FurnApp_API\\FurnApp_API\\FurnApp_API.csproj",
+        "packagesPath": "C:\\Users\\emrek\\.nuget\\packages\\",
+        "outputPath": "C:\\FurnApp-API\\FurnApp_API\\FurnApp_API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\EMRECAN ERKUŞ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\emrek\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -37,8 +38,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "MediatR": {
               "target": "Package",
@@ -50,21 +51,19 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[8.0.6, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[8.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[8.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[8.0.6, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -77,7 +76,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -89,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

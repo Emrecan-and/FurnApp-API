@@ -78,6 +78,7 @@ namespace FurnApp_API.Controllers
                 return BadRequest(response);
             }
         }
+        
         [HttpDelete("Delete/{email}")]
         public async Task<IActionResult> DeleteUser(string email)
         {

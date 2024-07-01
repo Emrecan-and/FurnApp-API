@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\FurnApp_API.props" />
+</Project>
